@@ -1,0 +1,26 @@
+{
+  "name": "file-nest",
+  "version": "1.0.0",
+  "description": "Serveur de gestion de fichiers",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fless-lab/file-nest.git"
+  },
+  "keywords": [
+    "file",
+    "hub",
+    "nest",
+    "server",
+    "node"
+  ],
+  "author": "Abdou-Raouf ATARMLA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fless-lab/file-nest/issues"
+  },
+  "homepage": "https://github.com/fless-lab/file-nest#readme"
+}
