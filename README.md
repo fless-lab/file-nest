@@ -36,7 +36,7 @@ Assure-toi d'avoir installé les éléments suivants sur ta machine :
 
 ## Installation
 
-1. Clone le dépôt : `git clone https://github.com/tonpseudo/file-nest.git`
+1. Clone le dépôt : `git clone https://github.com/fless-lab/file-nest.git`
 2. Accède au répertoire : `cd file-nest`
 3. Installe les dépendances : `npm install`
 
@@ -62,7 +62,9 @@ L'application est maintenant accessible sur [http://localhost:9330](http://local
 - **POST /files** : Télécharge un fichier.
 - **GET /files/:id** : Récupère un fichier.
 - **DELETE /files/:id** : Supprime un fichier.
-- **GET /metadata/:id** : Récupère les métadonnées d'un fichier.
+- **DELETE /files/permanent/:id** : Supprime un fichier de façon définitive.
+- **PATCH /files/restore/:id** : Restore un fichier supprimé.
+- **GET /metadata/:id** : Récupère les métadonnées d'un fichier [Pas encore implémenté].
 
 ## Authentification HMAC
 
@@ -73,6 +75,14 @@ L'authentification HMAC est utilisée pour garantir la sécurité des opération
 File Nest prend en charge la suppression logique des fichiers. Les fichiers supprimés ne sont pas immédiatement retirés, mais sont marqués pour suppression. 
 Le nettoyage automatique des fichiers marqués est effectué périodiquement.
 - **GARBAGE_COLLECTION_INTERVAL** : Fréquence du nettoyage automatique des fichiers marqués (par défaut : quotidien).
+
+## Suppression Permanente des Fichiers
+
+File Nest prend en charge la suppression permanent des fichiers. Une fois fait, ces fichiers ne sont plus accessible et sont définitivement supprimé de File Nest
+
+## Restoration des Fichiers Supprimés
+
+File Nest prend en charge la restoration des fichiers. Les fichiers supprimés sous forme logique peuvent être restoré [si le garbage collector n'est pas encore passé pour les supprimer définitivement].
 
 ## Contributions
 
