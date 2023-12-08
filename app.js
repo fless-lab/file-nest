@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const createError = require('http-errors')
 const FileRoutes = require("./src/routes/file.routes");
 const mongo = require("./src/common/database/mongodb"); 
+const validateHMAC = require("./src/middlewares/hmac.middleware");
 
 // App configs
 const app = express();
@@ -18,7 +19,7 @@ mongo.init();
 
 
 // Routes declarations
-app.use("/files",FileRoutes);
+app.use("/files",validateHMAC,FileRoutes);
 
 
 // Handling errors

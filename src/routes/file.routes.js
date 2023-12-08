@@ -1,9 +1,11 @@
 const express = require("express");
-const   router = express.Router();
+const FileController = require("../controllers/file.controller");
+const router = express.Router();
 
-
-router.get("/", async (req, res, next) => {
-    res.json('Welcome to files routes')
-});
+router.post('/', FileController.upload);
+router.get('/:id', FileController.get);
+router.delete('/:id', FileController.delete);
+router.delete('/permanent/:id', FileController.permanentDelete);
+router.patch('/restore/:id', FileController.restore);
 
 module.exports = router;

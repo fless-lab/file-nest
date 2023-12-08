@@ -5,8 +5,15 @@ class AppError extends Error{
     }
 }
 
+class FileNotFoundError extends AppError{
+    constructor(message="File Not Found"){
+        super(message,404);
+    }
+}
+
 
 
 module.exports = {
-    AppError
+    AppError,
+    FileNotFoundError
 }
