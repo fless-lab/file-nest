@@ -46,7 +46,8 @@ Crée un fichier `.env` à la racine du projet avec les configurations suivantes
 
 ```makefile
 PORT=9330
-MONGODB_URI=mongodb://localhost:27017/file-nest
+MONGO_URI=mongodb://localhost:27017
+DB_NAME=file-nest
 HMAC_SECRET=yourHmacSecret
 GARBAGE_COLLECTION_INTERVAL=86400000 # Nettoyage automatique quotidien (en millisecondes)
 ```
