@@ -1,4 +1,3 @@
-const { fileTypeFromBuffer } = require("file-type");
 const fs = require("fs/promises");
 const path = require("path");
 const crypto = require("crypto");
@@ -17,7 +16,11 @@ class FileService {
 
       const fileId = `${hash}-${new Date().getTime()}`;
       const filePath = path.join(__dirname, "uploads", fileId);
-      const mimeType = await fileTypeFromBuffer(contentBuffer);
+      let mimeType;
+      (async ()=>{
+        const FileType = await import("file-type");
+        mimeType = await FileType.fileTypeFromBuffer(contentBuffer);
+      });
 
       await fs.writeFile(filePath, contentBuffer);
 
@@ -101,6 +104,23 @@ class FileService {
       }
 
       return { success: true };
+    } catch (error) {
+      return { success: false, error };
+    }
+  }
+
+  static async runGarbageCollection() {
+    try {
+      const delay = parseInt(process.env.PERMANENT_DELETE_DELAY);
+      const deletionCutoff = new Date(Date.now() - delay);
+      const filesToDelete = await FileModel.find({
+        deletedAt:{$ne:null},
+        deletedAt:{$lt:deletionCutoff}
+      });
+      for (const fileToDelete of filesToDelete){
+        await this.permanentDeleteFile(fileToDelete._id);
+      }
+      return {success:true}
     } catch (error) {
       return { success: false, error };
     }

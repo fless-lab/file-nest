@@ -7,7 +7,7 @@ async function connect(uri,dbName){
         mongoose.connect(uri,{dbName})
             .then(()=>{
                 mongoClient = mongoose.connection;
-                console.log("Mongoose connected to DB")
+                console.log("🌟 Mongoose connected to DB 🌟")
                 resolve();
             }).catch(error=>reject(error));
     })
@@ -16,7 +16,7 @@ async function connect(uri,dbName){
 async function init(uri = process.env.MONGO_URI, dbName = process.env.DB_NAME){
     try {
         await connect(uri,dbName);
-        console.log("Mongodb initialized")
+        console.log("🌟 Mongodb initialized 🌟")
     } catch (error) {
         console.error("MongoDB connection error",error);
         throw error;

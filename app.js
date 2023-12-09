@@ -7,6 +7,7 @@ const createError = require('http-errors')
 const FileRoutes = require("./src/routes/file.routes");
 const mongo = require("./src/common/database/mongodb"); 
 const validateHMAC = require("./src/middlewares/hmac.middleware");
+const { startGarbageCollectionCron } = require("./src/utils/garbageCollector");
 
 // App configs
 const app = express();
@@ -19,7 +20,7 @@ mongo.init();
 
 
 // Routes declarations
-app.use("/files",validateHMAC,FileRoutes);
+app.use("/files",FileRoutes);
 
 
 // Handling errors
@@ -40,5 +41,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 9330;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+console.log(`🌐 Server running on port ${PORT} 🌐`);
+  startGarbageCollectionCron();
 });
