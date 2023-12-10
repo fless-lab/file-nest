@@ -12,9 +12,9 @@ const validateHMAC = (req, res, next) => {
     }
 
     let signatureString;
-    switch (req.method) {
+    switch (req.method.toUpperCase()) {
       case "GET":
-        signatureString = `${req.path}/${req.params.id}`;
+        signatureString = `${req.method}/${req.params.id}`;
         break;
 
       case "POST":
@@ -23,11 +23,11 @@ const validateHMAC = (req, res, next) => {
         break;
 
       case "DELETE":
-        signatureString = `${req.path}/${req.params.id}`;
+        signatureString = `${req.method}/${req.params.id}`;
         break;
 
       case "PATCH":
-        signatureString = `${req.path}/${req.params.id}`;
+        signatureString = `${req.method}/${req.params.id}`;
         break;
 
       default:

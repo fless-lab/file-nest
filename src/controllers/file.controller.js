@@ -3,8 +3,6 @@ const { msToCron } = require("../utils/convert");
 
 class FileController {
     static async upload(req, res) {
-        const _ = msToCron(process.env.GARBAGE_COLLECTION_INTERVAL)
-        console.log("cron result = ",_)
         try {
             const {filename,content} = req.body;
             const {success,id,error} = await FileService.uploadFile(filename, Buffer.from(content, 'base64'));
@@ -24,9 +22,6 @@ class FileController {
             if(!success){
                 throw error;
             }
-            // res.setHeaders('Content-Type',metadata.type);
-            // res.setHeaders('Content-Disposition',`attachment; filename="${metadata.name+metadata.extension}"`);
-            // res.status(200).send(content);
             res.status(200).json({metadata,content});
         } catch (error) {
             res.status(error.statusCode || 500).json({ error: "Unable to get requested file" });

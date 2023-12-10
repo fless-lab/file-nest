@@ -12,25 +12,25 @@ class FileService {
         .update(contentBuffer)
         .digest("hex");
 
-      const extension = path.extname(filename).toLowerCase();
-
       const fileId = `${hash}-${new Date().getTime()}`;
-      const filePath = path.join(__dirname, "uploads", fileId);
-      let mimeType;
-      (async ()=>{
+      const filePath = path.join(__dirname,"../..","uploads", fileId);
+
+      let type;
+      await (async ()=>{
         const FileType = await import("file-type");
-        mimeType = await FileType.fileTypeFromBuffer(contentBuffer);
-      });
+        type = await FileType.fileTypeFromBuffer(contentBuffer);
+      })();
 
       await fs.writeFile(filePath, contentBuffer);
 
       const fileData = {
         name: fileId,
         size: contentBuffer.length,
-        type: mimeType,
-        extension: extension,
+        type: type.mime,
+        extension: `.${type.ext}`,
         hash: hash,
       };
+
 
       const savedFile = await FileModel.create(fileData);
 
@@ -40,7 +40,7 @@ class FileService {
     }
   }
 
-  static async getFile(fileId, includeDeleted = false) {
+static async getFile(fileId, includeDeleted = false) {
     try {
       let fileQuery = FileModel.findById(fileId);
 
@@ -54,7 +54,7 @@ class FileService {
         throw new FileNotFoundError();
       }
 
-      const filePath = path.join(__dirname, "uploads", file.name);
+      const filePath = path.join(__dirname,"../..", "uploads", file.name);
       const contentBuffer = await fs.readFile(filePath);
 
       return { success: true, metadata: file, content: contentBuffer };
