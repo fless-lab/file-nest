@@ -17,6 +17,7 @@ Bienvenue dans File Nest, un serveur de gestion de fichiers développé en utili
 - [Restoration des Fichiers Supprimés](#restoration-des-fichiers-supprimés)
 - [Tutoriel d'Utilisation](#tutoriel-dutilisation)
 - [Vidéo de Démonstration](#vidéo-de-démonstration)
+- [Exemple Concrêt](#exemple-concrêt)
 - [Contributions](#contributions)
 - [Licence](#licence)
 
@@ -158,6 +159,10 @@ Assurez-vous de remplacer `VOTRE_SIGNATURE_HMAC` et `ID_DU_FICHIER` par les vale
 ## Vidéo de Démonstration
 
 Pour une démonstration visuelle des fonctionnalités de File Nest, vous pouvez visionner notre vidéo sur [YouTube - File Nest Demo](https://www.youtube.com/@raoufcode).
+
+## Exemple concrêt
+
+Vous voulez un exemple concrêt de l'utilisation de File Nest avec un autre projet disposant d'un backend et d'un front end ? Consultez ce repo 👉 [Github - File Nest Usage Example](https://www.github.com/fless-lab/file-nest-usage-example).
 
 ## Contributions
 
