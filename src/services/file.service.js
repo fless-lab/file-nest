@@ -120,7 +120,7 @@ static async getFile(fileId, includeDeleted = false) {
       for (const fileToDelete of filesToDelete){
         await this.permanentDeleteFile(fileToDelete._id);
       }
-      return {success:true}
+      return {success:true,status:filesToDelete.length}
     } catch (error) {
       return { success: false, error };
     }
