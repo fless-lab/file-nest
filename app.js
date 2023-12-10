@@ -12,7 +12,7 @@ const { startGarbageCollectionCron } = require("./src/utils/garbageCollector");
 // App configs
 const app = express();
 app.use(morgan("dev"));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // Initializations
