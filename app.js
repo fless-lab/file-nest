@@ -18,6 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 // Initializations
 mongo.init();
 
+// Hmac global middleware
+app.use(validateHMAC);
 
 // Routes declarations
 app.use("/files",FileRoutes);

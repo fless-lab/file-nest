@@ -3,7 +3,7 @@ const { AppError } = require("../common/error");
 
 const secretKey = process.env.HMAC_SECRET;
 
-const validateHMAC = (req, res, next) => {
+const   validateHMAC = (req, res, next) => {
   try {
     const receivedSignature = req.get("x-hmac-signature");
 
@@ -11,10 +11,14 @@ const validateHMAC = (req, res, next) => {
       throw new AppError("Missing HMAC signature", 401);
     }
 
+    console.log("req.params : ",req.params,req.url)
     let signatureString;
-    switch (req.method.toUpperCase()) {
+    const comparator = req.method.toUpperCase();
+    const tempParam = req.url.split("/");
+    const idParam = tempParam[tempParam.length -1];
+    switch (comparator) {
       case "GET":
-        signatureString = `${req.method}/${req.params.id}`;
+        signatureString = `${comparator}/${req.params.id??idParam}`;
         break;
 
       case "POST":
@@ -23,17 +27,17 @@ const validateHMAC = (req, res, next) => {
         break;
 
       case "DELETE":
-        signatureString = `${req.method}/${req.params.id}`;
+        signatureString = `${comparator}/${req.params.id??idParam}`;
         break;
 
       case "PATCH":
-        signatureString = `${req.method}/${req.params.id}`;
+        signatureString = `${comparator}/${req.params.id??idParam}`;
         break;
 
       default:
         throw new AppError("Method not allowed", 405);
     }
-
+    
     const calculatedSignature = crypto
       .createHmac("sha256", secretKey)
       .update(signatureString)
