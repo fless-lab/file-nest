@@ -1,181 +1,181 @@
-# File Nest - Serveur de Gestion de Fichiers
+# File Nest - File Management Server
 
-Bienvenue dans File Nest, un serveur de gestion de fichiers développé en utilisant Node.js, Express, MongoDB et l'authentification HMAC pour des opérations sécurisées.
+Welcome to File Nest, a file management server developed using Node.js, Express, MongoDB, and HMAC authentication for secure operations.
 
-## Table des matières
+## Table of Contents
 
 - [Introduction](#introduction)
-- [Fonctionnalités](#fonctionnalités)
-- [Prérequis](#prérequis)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Utilisation](#utilisation)
-- [Routes API](#routes-api)
-- [Authentification HMAC](#authentification-hmac)
-- [Suppression Logique des Fichiers](#suppression-logique-des-fichiers)
-- [Suppression Permanente des Fichiers](#suppression-permanente-des-fichiers)
-- [Restoration des Fichiers Supprimés](#restoration-des-fichiers-supprimés)
-- [Tutoriel d'Utilisation](#tutoriel-dutilisation)
-- [Vidéo de Démonstration](#vidéo-de-démonstration)
-- [Exemple Concrêt](#exemple-concrêt)
+- [Usage](#usage)
+- [API Routes](#api-routes)
+- [HMAC Authentication](#hmac-authentication)
+- [Logical File Deletion](#logical-file-deletion)
+- [Permanent File Deletion](#permanent-file-deletion)
+- [Restoration of Deleted Files](#restoration-of-deleted-files)
+- [Usage Tutorial](#usage-tutorial)
+- [Demo Video](#demo-video)
+- [Concrete Example](#concrete-example)
 - [Contributions](#contributions)
-- [Licence](#licence)
+- [License](#license)
 
 ## Introduction
 
-Le serveur File Nest est conçu pour offrir un stockage sécurisé et centralisé des fichiers, accessible via une API RESTful. Il permet le stockage, la récupération et la suppression de fichiers tout en garantissant la sécurité via l'authentification HMAC.
+The File Nest server is designed to provide secure and centralized file storage, accessible via a RESTful API. It allows for the storage, retrieval, and deletion of files while ensuring security through HMAC authentication.
 
-## Fonctionnalités
+## Features
 
-- Stockage centralisé des fichiers.
-- Authentification sécurisée via HMAC.
-- API RESTful pour des opérations simples.
-- Prise en charge de grands volumes de stockage et de requêtes.
-- Utilisation de Node.js et MongoDB pour la rapidité et la flexibilité.
+- Centralized file storage.
+- Secure authentication via HMAC.
+- RESTful API for simple operations.
+- Support for large storage volumes and requests.
+- Utilization of Node.js and MongoDB for speed and flexibility.
 
-## Prérequis
+## Prerequisites
 
-Assure-toi d'avoir installé les éléments suivants sur ta machine :
+Make sure you have the following installed on your machine:
 
 - Node.js
 - MongoDB
 
 ## Installation
 
-1. Clone le dépôt : `git clone https://github.com/fless-lab/file-nest.git`
-2. Accède au répertoire : `cd file-nest`
-3. Installe les dépendances : `npm install`
+1. Clone the repository: `git clone https://github.com/fless-lab/file-nest.git`
+2. Navigate to the directory: `cd file-nest`
+3. Install dependencies: `npm install`
 
 ## Configuration
 
-Crée un fichier `.env` à la racine du projet avec les configurations suivantes :
+Create a `.env` file at the root of the project with the following configurations:
 
 ```makefile
 PORT=9330
 MONGO_URI=mongodb://localhost:27017
 DB_NAME=file-nest
 HMAC_SECRET=yourHmacSecret
-GARBAGE_COLLECTION_INTERVAL=86400000 # Nettoyage automatique quotidien (en millisecondes)
-PERMANENT_DELETE_DELAY=604800000 # Délai pour la suppression permanente (7 jours en millisecondes)
+GARBAGE_COLLECTION_INTERVAL=86400000 # Daily automatic cleanup (in milliseconds)
+PERMANENT_DELETE_DELAY=604800000 # Delay for permanent deletion (7 days in milliseconds)
 ```
 
-## Utilisation
+## Usage
 
-Lance l'application : `npm start`
-L'application est maintenant accessible sur [http://localhost:9330](http://localhost:9330)
+Run the application: `npm start`
+The application is now accessible at [http://localhost:9330](http://localhost:9330)
 
-## Routes API
+## API Routes
 
-- **POST /files** : Télécharge un fichier.
-- **GET /files/:id** : Récupère un fichier.
-- **DELETE /files/:id** : Supprime un fichier.
-- **DELETE /files/permanent/:id** : Supprime un fichier de façon définitive.
-- **PATCH /files/restore/:id** : Restore un fichier supprimé.
-- **GET /metadata/:id** : Récupère les métadonnées d'un fichier [Pas encore implémenté].
+- **POST /files** : Uploads a file.
+- **GET /files/:id** : Retrieves a file.
+- **DELETE /files/:id** : Deletes a file.
+- **DELETE /files/permanent/:id** : Permanently deletes a file.
+- **PATCH /files/restore/:id** : Restores a deleted file.
+- **GET /metadata/:id** : Retrieves file metadata [Not yet implemented].
 
-## Authentification HMAC
+## HMAC Authentication
 
-L'authentification HMAC est utilisée pour garantir la sécurité des opérations. Assure-toi d'utiliser la clé secrète HMAC spécifiée dans le fichier `.env`.
+HMAC authentication is used to ensure the security of operations. Make sure to use the HMAC secret key specified in the `.env` file.
 
-## Suppression Logique des Fichiers
+## Logical File Deletion
 
-File Nest prend en charge la suppression logique des fichiers. Les fichiers supprimés ne sont pas immédiatement retirés, mais sont marqués pour suppression. 
-Le nettoyage automatique des fichiers marqués est effectué périodiquement.
+File Nest supports logical file deletion. Deleted files are not immediately removed but are marked for deletion. 
+Automatic cleanup of marked files is performed periodically.
 
-## Suppression Permanente des Fichiers
+## Permanent File Deletion
 
-File Nest prend en charge la suppression permanent des fichiers. Une fois fait, ces fichiers ne sont plus accessible et sont définitivement supprimé de File Nest.
+File Nest supports permanent file deletion. Once done, these files are no longer accessible and are permanently removed from File Nest.
 
-## Restauration des Fichiers Supprimés
+## Restoration of Deleted Files
 
-File Nest prend en charge la restauration des fichiers. Les fichiers supprimés sous forme logique peuvent être restoré [si le garbage collector n'est pas encore passé pour les supprimer définitivement].
+File Nest supports file restoration. Logically deleted files can be restored [if the garbage collector has not yet passed to permanently delete them].
 
-## Tutoriel d'Utilisation
+## Usage Tutorial
 
-Bienvenue dans le tutoriel d'utilisation de File Nest. Ce guide vous montrera comment utiliser les fonctionnalités de base de File Nest pour gérer vos fichiers de manière sécurisée.
+Welcome to the File Nest usage tutorial. This guide will show you how to use the basic features of File Nest to manage your files securely.
 
-### 1. Télécharger un fichier
+### 1. Upload a file
 
-Pour télécharger un fichier sur File Nest, utilisez la méthode POST sur l'endpoint `/files`. Assurez-vous d'inclure votre fichier dans le corps de la requête. Voici un exemple en utilisant curl :
+To upload a file to File Nest, use the POST method on the `/files` endpoint. Make sure to include your file in the request body. Here's an example using curl:
 
 ```bash
 curl -X POST \
   -H "Content-Type: application/json" \
-  -H "x-hmac-signature: VOTRE_SIGNATURE_HMAC" \
-  -d '{"content": "Contenu_du_fichier_encodé_en_base64"}' \
+  -H "x-hmac-signature: YOUR_HMAC_SIGNATURE" \
+  -d '{"content": "Base64_encoded_file_content"}' \
   http://localhost:9330/files
 ```
 
-Assurez-vous de remplacer `VOTRE_SIGNATURE_HMAC` par votre signature HMAC réelle.
+Make sure to replace `YOUR_HMAC_SIGNATURE` with your actual HMAC signature.
 
-### 2. Récupérer un fichier
+### 2. Retrieve a file
 
-Pour récupérer un fichier depuis File Nest, utilisez la méthode GET sur l'endpoint `/files/:id`. Remplacez `:id` par l'ID du fichier que vous souhaitez récupérer. Voici un exemple en utilisant curl :
+To retrieve a file from File Nest, use the GET method on the `/files/:id` endpoint. Replace `:id` with the ID of the file you want to retrieve. Here's an example using curl:
 
 ```bash
 curl -X GET \
-  -H "x-hmac-signature: VOTRE_SIGNATURE_HMAC" \
-  http://localhost:9330/files/ID_DU_FICHIER
+  -H "x-hmac-signature: YOUR_HMAC_SIGNATURE" \
+  http://localhost:9330/files/FILE_ID
 ```
 
-Assurez-vous de remplacer `VOTRE_SIGNATURE_HMAC` et `ID_DU_FICHIER` par les valeurs appropriées.
+Make sure to replace `YOUR_HMAC_SIGNATURE` and `FILE_ID` with the appropriate values.
 
-### 3. Supprimer un fichier
+### 3. Delete a file
 
-Pour supprimer un fichier logiquement, utilisez la méthode DELETE sur l'endpoint `/files/:id`. Voici un exemple en utilisant curl :
+To logically delete a file, use the DELETE method on the `/files/:id` endpoint. Here's an example using curl:
 
 ```bash
 curl -X DELETE \
-  -H "x-hmac-signature: VOTRE_SIGNATURE_HMAC" \
-  http://localhost:9330/files/ID_DU_FICHIER
+  -H "x-hmac-signature: YOUR_HMAC_SIGNATURE" \
+  http://localhost:9330/files/FILE_ID
 ```
 
-Assurez-vous de remplacer `VOTRE_SIGNATURE_HMAC` et `ID_DU_FICHIER` par les valeurs appropriées.
+Make sure to replace `YOUR_HMAC_SIGNATURE` and `FILE_ID` with the appropriate values.
 
-### 4. Supprimer définitivement un fichier
+### 4. Permanently delete a file
 
-Pour supprimer définitivement un fichier, utilisez la méthode DELETE sur l'endpoint `/files/permanent/:id`. Voici un exemple en utilisant curl :
+To permanently delete a file, use the DELETE method on the `/files/permanent/:id` endpoint. Here's an example using curl:
 
 ```bash
 curl -X DELETE \
-  -H "x-hmac-signature: VOTRE_SIGNATURE_HMAC" \
-  http://localhost:9330/files/permanent/ID_DU_FICHIER
+  -H "x-hmac-signature: YOUR_HMAC_SIGNATURE" \
+  http://localhost:9330/files/permanent/FILE_ID
 ```
 
-Assurez-vous de remplacer `VOTRE_SIGNATURE_HMAC` et `ID_DU_FICHIER` par les valeurs appropriées.
+Make sure to replace `YOUR_HMAC_SIGNATURE` and `FILE_ID` with the appropriate values.
 
-### 5. Restaurer un fichier
+### 5. Restore a file
 
-Pour restaurer un fichier précédemment supprimé, utilisez la méthode PATCH sur l'endpoint `/files/restore/:id`. Voici un exemple en utilisant curl :
+To restore a previously deleted file, use the PATCH method on the `/files/restore/:id` endpoint. Here's an example using curl:
 
 ```bash
 curl -X PATCH \
-  -H "x-hmac-signature: VOTRE_SIGNATURE_HMAC" \
-  http://localhost:9330/files/restore/ID_DU_FICHIER
+  -H "x-hmac-signature: YOUR_HMAC_SIGNATURE" \
+  http://localhost:9330/files/restore/FILE_ID
 ```
 
-Assurez-vous de remplacer `VOTRE_SIGNATURE_HMAC` et `ID_DU_FICHIER` par les valeurs appropriées.
+Make sure to replace `YOUR_HMAC_SIGNATURE` and `FILE_ID` with the appropriate values.
 
-## Vidéo de Démonstration
+## Demo Video
 
-Pour une démonstration visuelle des fonctionnalités de File Nest, vous pouvez visionner notre vidéo sur [YouTube - File Nest Demo](https://www.youtube.com/@raoufcode).
+For a visual demonstration of File Nest features, you can watch our video on [YouTube - File Nest Demo](https://www.youtube.com/@raoufcode).
 
-## Exemple concrêt
+## Concrete Example
 
-Vous voulez un exemple concrêt de l'utilisation de File Nest avec un autre projet disposant d'un backend et d'un front end ? Consultez ce repo 👉 [Github - File Nest Usage Example](https://www.github.com/fless-lab/file-nest-usage-example).
+Want a concrete example of using File Nest with another project that has both a backend and a frontend? Check out this repo 👉 [Github - File Nest Usage Example](https://www.github.com/fless-lab/file-nest-usage-example).
 
 ## Contributions
 
-Les contributions sont les bienvenues ! Pour contribuer, suivez ces étapes :
+Contributions are welcome! To contribute, follow these steps:
 
-1. Fork du projet
-2. Créez une branche pour votre fonctionnalité (`git checkout -b feature/NouvelleFonctionnalite`)
-3. Commit de vos changements (`git commit -m 'Ajout d'une nouvelle fonctionnalité'`)
-4. Push vers la branche (`git push origin feature/NouvelleFonctionnalite`)
-5. Créez une Pull Request
+1. Fork the project
+2. Create a branch for your feature (`git checkout -b feature/NewFeature`)
+3. Commit your changes (`git commit -m 'Add a new feature'`)
+4. Push to the branch (`git push origin feature/NewFeature`)
+5. Create a Pull Request
 
-Merci de contribuer à File Nest !
+Thank you for contributing to File Nest!
 
-## Licence
+## License
 
-Ce projet est sous licence [MIT](LICENSE).
+This project is licensed under the [MIT License](LICENSE).
