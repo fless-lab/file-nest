@@ -11,7 +11,6 @@ const   validateHMAC = (req, res, next) => {
       throw new AppError("Missing HMAC signature", 401);
     }
 
-    console.log("req.params : ",req.params,req.url)
     let signatureString;
     const comparator = req.method.toUpperCase();
     const tempParam = req.url.split("/");
