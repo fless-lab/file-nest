@@ -1,11 +1,10 @@
 const FileService = require("../services/file.service");
-const { msToCron } = require("../utils/convert");
 
 class FileController {
     static async upload(req, res) {
         try {
-            const {filename,content} = req.body;
-            const {success,id,error} = await FileService.uploadFile(filename, Buffer.from(content, 'base64'));
+            const {content} = req.body;
+            const {success,id,error} = await FileService.uploadFile(Buffer.from(content, 'base64'));
             if(!success){
                 throw error;
             }

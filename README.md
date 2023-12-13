@@ -102,7 +102,7 @@ Pour télécharger un fichier sur File Nest, utilisez la méthode POST sur l'end
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "x-hmac-signature: VOTRE_SIGNATURE_HMAC" \
-  -d '{"filename": "nom_du_fichier.txt", "content": "Contenu_du_fichier_encodé_en_base64"}' \
+  -d '{"content": "Contenu_du_fichier_encodé_en_base64"}' \
   http://localhost:9330/files
 ```
 

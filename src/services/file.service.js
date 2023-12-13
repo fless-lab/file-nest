@@ -5,7 +5,7 @@ const FileModel = require("../models/file.model");
 const { FileNotFoundError } = require("../common/error");
 
 class FileService {
-  static async uploadFile(filename, contentBuffer) {
+  static async uploadFile(contentBuffer) {
     try {
       const hash = crypto
         .createHash("sha256")
